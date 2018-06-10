@@ -1,0 +1,64 @@
+<h3>Create Todo: </h3>
+<form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+<div>
+  <div>
+    <input
+    type="text"
+    [(ngModel)]="model.description"
+    name="description"
+    #description="ngModel"
+    >
+  </div>
+  <div >
+    <input
+      type="text"
+      placeholder="Responsible"
+      id="responsible"
+      [(ngModel)]="model.responsible"
+      name="responsible"
+      #responsible="ngModel">
+  </div>
+  <div>
+    <select
+      id="priority"
+      [(ngModel)]="model.priority"
+      name="priority"
+      #priority="ngModel">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit" >Create</button>
+  </div>
+</div>
+</form>
+<br />
+<h6>Todos List:</h6>
+<div *ngIf="(todos | async)?.length!=0">
+  <table >
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Todo Description</th>
+      <th>Responsible</th>
+      <th>Priority</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let t of todos | async">
+      <td><span (click)="toggleTodo(t)" [class.completed]="t.isCompleted">{{ t.id }}</span></td>
+      <td><span (click)="toggleTodo(t)" [class.completed]="t.isCompleted">{{ t.description }}</span></td>
+      <td><span (click)="toggleTodo(t)" [class.completed]="t.isCompleted">{{ t.responsible }}</span></td>
+      <td>
+        <span *ngIf="t.priority == 'low'" class="badge badge-success">Low</span>
+        <span *ngIf="t.priority == 'medium'" class="badge badge-warning">Medium</span>
+        <span *ngIf="t.priority == 'high'" class="badge badge-danger">High</span>
+      </td>
+      <td><button (click)="removeTodo(t)">Delete</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,7 @@
+<p>
+  <span>
+    Last update: {{ (lastUpdate | async) | date:'mediumTime' }}
+    | Total items: {{(todos | async).length | date:'mediumTime'}}
+  </span>
+  <button (click)="clearTodos()"> Delete all tasks</button>
+</p>
